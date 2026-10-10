@@ -74,6 +74,7 @@
     zotero
     obsidian
     anki
+    hledger
     opencode
 
     bleachbit
@@ -85,19 +86,24 @@
     ansible
     podman
     podman-compose
+    podman-desktop
+    rclone
     udiskie
     ripgrep
     btop
     curl
     wget
+    aria2
     which
     tree
     file
     pciutils
     usbutils
     cpufrequtils
-    smartmontools   
+    smartmontools
+    sing-box
     bat
+    mc
     eza
     fd
     fzf
