@@ -60,6 +60,7 @@
     tenacity
     krita
     blender
+    darktable
     davinci-resolve
 
     uv

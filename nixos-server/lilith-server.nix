@@ -221,6 +221,7 @@ in {
     }
   ];
 
+  # System services
   services = {
     openssh = {
       enable = true;
