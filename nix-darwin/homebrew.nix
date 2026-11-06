@@ -8,6 +8,7 @@
 
     brews = [ ];
     casks = [
+      "affinity"
       "zen-browser"
       "obsidian"
       "obs"
@@ -18,6 +19,7 @@
       "zotero"
       "anki"
       "keepassxc"
+      "knime"
     ];
   };
 }

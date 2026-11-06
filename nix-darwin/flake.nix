@@ -1,3 +1,5 @@
+# Reference: https://github.com/swaphb/nix-darwin-config
+
 {
   description = "Nix-Darwin Flakes";
 
@@ -22,6 +24,8 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
+
+    hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
   outputs = inputs@{ self, nix-homebrew, home-manager, ... }:
@@ -63,16 +67,14 @@
 
           baseDarwin
           
-          ./modules/darwin/default.nix
-          
           nix-homebrew.darwinModules.nix-homebrew {
             nix-homebrew = {
               enable = true;
               enableRosetta = true;
-              user = userVars.userA.username;
+              user = "kuruzyy";
               taps = {
-                "homebrew/homebrew-core"   = inputs.homebrew-core;
-                "homebrew/homebrew-cask"   = inputs.homebrew-cask;
+                "homebrew/homebrew-core" = inputs.homebrew-core;
+                "homebrew/homebrew-cask" = inputs.homebrew-cask;
                 "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
               };
               autoMigrate = true;
@@ -81,15 +83,17 @@
           }
           
           home-manager.darwinModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.verbose = true;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              verbose = true;
 
-            home-manager.users."kuruzyy" = { pkgs, lib, ... }:
-            {
-              imports = [
-                ./home.nix
-              ];
+              users."kuruzyy" = { pkgs, lib, ... }:
+              {
+                imports = [
+                  ./home.nix
+                ];
+              };
             };
           }
         ];
