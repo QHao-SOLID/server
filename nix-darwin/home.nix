@@ -55,7 +55,6 @@
     quarto
     hledger
     puffin
-    ticker
     zk
     posting
     mkcert
