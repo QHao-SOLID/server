@@ -35,41 +35,60 @@
 
   outputs = inputs@{ self, nix-homebrew, home-manager, ... }:
     let
-      baseDarwin = { config, pkgs, ... }:
-        {
-          nixpkgs.hostPlatform = "aarch64-darwin";
+      baseDarwin = { config, pkgs, ... }: {
+        nixpkgs.hostPlatform = "aarch64-darwin";
 
-          system.stateVersion = 5;
+        system.stateVersion = 5;
 
-          nix = {
-            package = pkgs.lix;
-            settings = {
-              experimental-features = [ "nix-command" "flakes" ];
-              auto-optimise-store = true;
-              substituters = [
-                "https://cache.nixos.org"
-                "https://cache.forall.systems/"
-              ];
-            };
-            gc = {
-              automatic = true;
-              dates = "daily";
-              options = "--delete-older-than 7d";
-            };
+        nix = {
+          package = pkgs.lix;
+          settings = {
+            experimental-features = [ "nix-command" "flakes" ];
+            auto-optimise-store = true;
+            substituters = [
+              "https://cache.nixos.org"
+              "https://cache.forall.systems/"
+            ];
           };
-
-          nixpkgs = {
-            config.allowUnfree = true;
-            overlays = [ nur.overlays.default ];
+          gc = {
+            automatic = true;
+            dates = "daily";
+            options = "--delete-older-than 7d";
           };
         };
+
+        nixpkgs = {
+          config.allowUnfree = true;
+          overlays = [ nur.overlays.default ];
+        };
+
+        homebrew = {
+          enable = true;
+          onActivation.cleanup = "uninstall";
+
+          brews = [ ];
+          casks = [
+            "affinity"
+            "obsidian"
+            "obs"
+            "vlc"
+            "audacity"
+            "krita"
+            "visual-studio-code"
+            "zotero"
+            "anki"
+            "keepassxc"
+            "knime"
+            "miniconda"
+          ];
+        };
+      };
     in
     {
       darwinConfigurations."kuruzyy" = nix-darwin.lib.darwinSystem {
         modules = [
           baseDarwin
-          ./homebrew.nix
-          
+
           nix-homebrew.darwinModules.nix-homebrew {
             nix-homebrew = {
               enable = true;
@@ -89,13 +108,10 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              verbose = true;
+              extraSpecialArgs = { inherit inputs; };
 
-              users."kuruzyy" = { pkgs, lib, ... }:
-              {
-                imports = [
-                  ./home.nix
-                ];
+              users."kuruzyy" = { pkgs, lib, ... }: {
+                imports = [ ./home.nix ];
               };
             };
           }

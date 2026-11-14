@@ -3,7 +3,7 @@
 {
   imports = [
     hermes-agent.homeManagerModules.default
-  ]
+  ];
 
   home = {
     username = "kuruzyy";
@@ -27,7 +27,7 @@
     neovim = {
       enable = true;
       defaultEditor = true;
-      plugins = with pkgs.vimPlugins [
+      plugins = with pkgs.vimPlugins; [
         dashboard-nvim
         nvim-tree-lua
       ];
@@ -42,9 +42,9 @@
     firefox = {
       enable = true;
       profiles = {
-        admin = {
+        kuruzyy = {
           id = 0;
-          name = "admin";
+          name = "kuruzyy";
           isDefault = true;
           extensions = with pkgs; [
             nur.repos.rycee.firefox-addons.ublock-origin
@@ -64,7 +64,6 @@
     opentofu
     ansible
     harlequin
-    opencode
     uv
     typst
     devenv
@@ -103,9 +102,6 @@
     gallery-dl
     yt-dlp
     theharvester
-    docker
-    docker-compose
-    zsh
     sherlock
 
     (python313.withPackages (python-pkgs: with python-pkgs; [
