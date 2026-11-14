@@ -39,6 +39,25 @@
         theme = "jonathan";
       };
     };
+    firefox = {
+      enable = true;
+      profiles = {
+        admin = {
+          id = 0;
+          name = "admin";
+          isDefault = true;
+          extensions = with pkgs; [
+            nur.repos.rycee.firefox-addons.ublock-origin
+          	nur.repos.rycee.firefox-addons.sponsorblock
+            nur.repos.rycee.firefox-addons.decentraleyes
+            nur.repos.rycee.firefox-addons.downthemall
+            nur.repos.rycee.firefox-addons.privacy-badger
+           	nur.repos.rycee.firefox-addons.single-file
+            nur.repos.rycee.firefox-addons.darkreader
+          ];
+        };
+      };
+    };
   };
 
   home.packages = with pkgs; [

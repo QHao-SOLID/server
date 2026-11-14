@@ -25,6 +25,11 @@
       flake = false;
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
@@ -53,19 +58,17 @@
             };
           };
 
-          nixpkgs.config.allowUnfree = true;
+          nixpkgs = {
+            config.allowUnfree = true;
+            overlays = [ nur.overlays.default ];
+          };
         };
     in
     {
       darwinConfigurations."kuruzyy" = nix-darwin.lib.darwinSystem {
         modules = [
-          ({ pkgs, ... }: {
-            _module.args = {
-              username = "kuruzyy";
-            };
-          })
-
           baseDarwin
+          ./homebrew.nix
           
           nix-homebrew.darwinModules.nix-homebrew {
             nix-homebrew = {

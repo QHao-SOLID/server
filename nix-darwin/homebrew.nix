@@ -20,6 +20,9 @@
       "anki"
       "keepassxc"
       "knime"
+      "miniconda"
+      "retroarch"
+      "whatsapp"
     ];
   };
 }
